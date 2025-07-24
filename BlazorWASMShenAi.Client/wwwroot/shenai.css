@@ -1,0 +1,150 @@
+﻿/*#stage {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    #stage.state-loading::after {
+        content: "Loading ...";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        line-height: 100vh;
+        text-align: center;
+        color: white;
+        background: gray;
+    }
+
+    #stage.state-error::after {
+        content: "Error";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        line-height: 100vh;
+        text-align: center;
+        color: red;
+        background: white;
+    }
+
+
+#instruction,
+#heart-rate {
+    height: 1.5em;
+}
+
+#canvas-wrapper {
+    flex: 1;
+}
+
+#mxcanvas {
+    height: 100%;
+    max-height: 80vh;
+    aspect-ratio: 480/894;
+}
+
+#heart-rate:not(:empty)::before {
+    content: "Heart rate: ";
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 5px;
+    text-align: left;
+}
+
+#health-risks-factors {
+    display: flex;
+    flex-direction: column;
+}*/
+
+
+
+
+
+
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+}
+
+#mxcanvas {
+    aspect-ratio: 480 / 894;
+    /*max-width: 70%;
+    max-height: 70%;*/
+    background-color: #000;
+    display: block;
+    border: 1px solid #444;
+}
+
+@media (max-aspect-ratio: 480/894) {
+    #mxcanvas {
+        width: 60%;
+        height: auto;
+    }
+}
+
+@media (min-aspect-ratio: 480/894) {
+    #mxcanvas {
+        height: 60%;
+        width: auto;
+    }
+}
+
+
+ 
+
+./*wrapper {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+    overflow: hidden;
+}
+
+#mxcanvas {
+    aspect-ratio: 480 / 894;
+    max-width: 50vw;*/ /* 50% of viewport width */
+    /*max-height: 80vh;*/ /* 80% of viewport height */
+    /*background-color: #000;
+    display: block;
+    border: 1px solid #444;
+}
+
+@media (max-aspect-ratio: 480/894) {
+    #mxcanvas {
+        width: 50vw;
+        height: auto;
+    }
+}
+
+@media (min-aspect-ratio: 480/894) {
+    #mxcanvas {
+        height: 80vh;
+        width: auto;
+    }
+}*/

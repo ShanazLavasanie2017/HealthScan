@@ -1,0 +1,78 @@
+﻿@page "/healthscan"
+@rendermode InteractiveWebAssembly
+
+<h1 class="mt-4 mb-2 text-center text-primary">Health Scan</h1>
+
+@if (!string.IsNullOrEmpty(errorMsg))
+{
+    <div class="alert alert-danger">@errorMsg</div>
+}
+
+<div class="d-flex justify-content-center mb-4">
+    <button class="btn btn-success btn-lg" @onclick="StartShenAI">🚀 Start Scan</button>
+</div>
+
+<div id="stage" class="state-loading container shadow p-4 bg-light rounded">
+    <div class="text-center mb-3">
+        <div id="instruction" class="lead text-muted"></div>
+        <div id="progress" class="mt-2"></div>
+    </div>
+
+    <div class="text-center mb-3" id="canvas-wrapper">
+        <canvas id="mxcanvas" style="max-width: 100%; border: 1px solid #ccc;"></canvas>
+    </div>
+    <div id="heart-rate" class="text-center fs-4 fw-bold text-danger mb-3"></div>
+
+    <div id="results" class="mt-4 mb-2"></div>
+
+    <div class="text-end mb-3">
+        <a id="download-intervals" class="btn btn-outline-secondary hidden" href="" download="heartbeats.csv">
+            ⬇️ Download Heartbeat Intervals
+        </a>
+    </div>
+
+    <button id="compute-risks" class="btn btn-primary mb-3">💡 Compute Risks</button>
+    <form id="health-risks-factors" class="hidden row g-3">
+        <div class="col-md-4">
+            <label for="age" class="form-label">Age</label>
+            <input type="number" class="form-control" id="age" />
+        </div>
+        <div class="col-md-4">
+            <label for="cholesterol" class="form-label">Cholesterol</label>
+            <input type="number" class="form-control" id="cholesterol" />
+        </div>
+        <div class="col-md-4">
+            <label for="cholesterolHdl" class="form-label">HDL Cholesterol</label>
+            <input type="number" class="form-control" id="cholesterolHdl" />
+        </div>
+
+        <!-- Add remaining fields using consistent Bootstrap columns -->
+        <div class="col-12">
+            <input id="health-risks-submit" type="submit" class="btn btn-warning" value="🔍 Compute Health Risks" />
+        </div>
+    </form>
+
+    <div id="risks" class="hidden mt-5">
+        <h4 class="text-secondary">Risk Results</h4>
+        <table class="table table-bordered table-striped" id="health-risks-results">
+            <thead class="table-light">
+                <tr><th colspan="5">Hard and Fatal Events Risks</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="coronaryDeathEventRisk">Coronary death event risk</td>
+                    <td id="fatalStrokeEventRisk">Fatal stroke event risk</td>
+                    <td id="totalCVMortalityRisk">Total CV mortality risk</td>
+                    <td id="hardCVEventRisk">Hard CV event risk</td>
+                </tr>
+            </tbody>
+            <!-- Repeat for CV disease risks and scores -->
+            <tfoot>
+                <tr>
+                    <th>Vascular Age</th>
+                    <td id="vascularAge" colspan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

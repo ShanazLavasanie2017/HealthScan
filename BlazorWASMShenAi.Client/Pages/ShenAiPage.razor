@@ -1,0 +1,138 @@
+﻿@page "/shenai"
+@rendermode InteractiveWebAssembly
+
+<h3>Shen Ai </h3>
+ 
+@* <p>@errorMsg</p>
+<div class="wrapper">
+    <canvas id="mxcanvas"></canvas>
+</div>
+
+<button class="btn btn-primary" @onclick="StartShenAI">Start ShenAI</button> *@
+
+@* //new stuff *@
+
+<button class="btn btn-success mt-3" @onclick="StartShenAI">Start ShenAI</button>
+ 
+@if (!string.IsNullOrEmpty(errorMsg))
+{
+    <p class="text-danger">@errorMsg</p>
+}
+
+<div id="stage">
+    <div id="instruction" class="mb-2 text-info"></div>
+    <div id="progress" class="mb-2 font-weight-bold"></div>
+
+    <div class="canvas-wrapper">
+        <canvas id="mxcanvas" ></canvas>
+    </div>
+
+    <div id="heart-rate" class="mb-2 text-success"></div>
+    <div id="results" class="mb-2"></div>
+
+    <a id="download-intervals" class="hidden" href="" download="heartbeats.csv">
+        <button class="btn btn-sm btn-outline-success">Download heartbeat intervals</button>
+    </a>
+
+    <button id="compute-risks" class="btn btn-secondary mt-3" @onclick="ShowRiskForm">Compute Risks</button>
+
+    @if (showRiskForm)
+    {
+        <EditForm Model="riskForm" OnValidSubmit="ComputeRisks">
+            <div class="form-group">
+                <label>Age</label>
+                <InputNumber class="form-control" @bind-Value="riskForm.Age" />
+            </div>
+            <div class="form-group">
+                <label>Cholesterol</label>
+                <InputNumber class="form-control" @bind-Value="riskForm.Cholesterol" />
+            </div>
+            <div class="form-group">
+                <label>Cholesterol HDL</label>
+                <InputNumber class="form-control" @bind-Value="riskForm.CholesterolHdl" />
+            </div>
+            <div class="form-group">
+                <label>Systolic Blood Pressure</label>
+                <InputNumber class="form-control" @bind-Value="riskForm.Sbp" />
+            </div>
+            <div class="form-group">
+                <InputCheckbox @bind-Value="riskForm.Smoker" />
+                <label> Current Smoker</label>
+            </div>
+            <div class="form-group">
+                <InputCheckbox @bind-Value="riskForm.HypertensionTreatment" />
+                <label> Hypertension Treatment</label>
+            </div>
+            <div class="form-group">
+                <InputCheckbox @bind-Value="riskForm.Diabetes" />
+                <label> Diabetes</label>
+            </div>
+            <div class="form-group">
+                <label>Height (cm)</label>
+                <InputNumber class="form-control" @bind-Value="riskForm.BodyHeight" />
+            </div>
+            <div class="form-group">
+                <label>Weight (kg)</label>
+                <InputNumber class="form-control" @bind-Value="riskForm.BodyWeight" />
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <InputText class="form-control" @bind-Value="riskForm.Gender" />
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <InputText class="form-control" @bind-Value="riskForm.Country" />
+            </div>
+            <div class="form-group">
+                <label>Race</label>
+                <InputText class="form-control" @bind-Value="riskForm.Race" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Compute health risks</button>
+        </EditForm>
+    }
+
+    <div id="risks" class="hidden mt-3">
+        <h5>Risk Results</h5>
+        <table class="table table-bordered" id="health-risks-results">
+            <tr>
+                <th>Hard and Fatal Events</th>
+                <td id="coronaryDeathEventRisk">Coronary death event risk</td>
+                <td id="fatalStrokeEventRisk">Fatal stroke event risk</td>
+                <td id="totalCVMortalityRisk">Total CV mortality risk</td>
+                <td id="hardCVEventRisk">Hard CV event risk</td>
+            </tr>
+            <tr>
+                <th>CV Diseases</th>
+                <td id="overallRisk">Overall risk</td>
+                <td id="coronaryHeartDiseaseRisk">Coronary heart disease risk</td>
+                <td id="strokeRisk">Stroke risk</td>
+                <td id="heartFailureRisk">Heart failure risk</td>
+                <td id="peripheralVascularDiseaseRisk">Peripheral vascular disease risk</td>
+            </tr>
+            <tr>
+                <th>Risk Factor Scores</th>
+                <td id="ageScore">Age score</td>
+                <td id="sbpScore">SBP score</td>
+                <td id="smokingScore">Smoking score</td>
+                <td id="diabetesScore">Diabetes score</td>
+                <td id="bmiScore">BMI score</td>
+                <td id="cholesterolScore">Cholesterol score</td>
+                <td id="cholesterolHdlScore">Cholesterol HDL score</td>
+                <td id="totalScore">Total score</td>
+            </tr>
+            <tr>
+                <th>Vascular Age</th>
+                <td id="vascularAge">Vascular age</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+ 
+
+
+
+
+

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <script>
+        window.__shenaiMemoryConfig = {
+          INITIAL_MEMORY: 2147483648, // 2 GB initial memory
+          MAXIMUM_MEMORY: 4294967296, // 4 GB maximum memory
+          ALLOW_MEMORY_GROWTH: true,
+          MEMORY_GROWTH_STEP: 1048576 // 1 MB growth step
+        };
+
+        window.Module = Object.assign(window.Module || {}, window.__shenaiMemoryConfig);
+
+        window.shenaiWorkerConfig = {
+          wasmMemory: new WebAssembly.Memory({
+            initial: 32768, // 2 GB (32768 pages * 64 KB)
+            maximum: 65536, // 4 GB (65536 pages * 64 KB)
+            shared: false // Disable shared memory to avoid compatibility issues
+          })
+        };
+    </script>
+    <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
+    <link rel="stylesheet" href="@Assets["app.css"]" />
+    <link rel="stylesheet" href="@Assets["BlazorWASMShenAi.styles.css"]" />
+    <link rel="stylesheet" href="@Assets["ShenAiStyle.css"]" />
+    <ImportMap />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <HeadOutlet />
+</head>
+
+<body>
+    <Routes />
+    <!-- Optimize scan configuration -->
+    <script>
+        window.shenaiScanConfig = {
+          resolution: '320x240', // Lower resolution to reduce memory usage
+          frameRate: 10, // Keep low frame rate
+          duration: 10 // Keep short duration
+        };
+    </script>
+    <script type="module" src="jsFile/shenaiIntrop.js"></script>
+    <script src="_framework/blazor.web.js"></script>
+</body>
+
+</html>
